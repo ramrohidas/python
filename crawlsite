@@ -1,0 +1,15 @@
+exc = input("Enter The Name or path of your page")
+with open(exc,'r') as webpage:
+    with open('output.txt','a') as wf:
+        page = webpage.read()
+        link_exist = True
+        while link_exist:
+            pos = page.find('<a href =')
+            if pos == -1:
+                link_exist = False
+            else:
+                start = page.find('\"',pos)
+                stop = page.find('\"',start+1)
+                url = page[start+1:stop]
+                wf.write(f"{url}\n")
+                page = page[stop:]
